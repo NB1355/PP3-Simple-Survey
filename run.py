@@ -29,3 +29,5 @@ print(data)
 
 get_url= webbrowser.open('https://nb1355.github.io/PP1-Mountaineering-Global/',2)
 
+print ('setup deployment in heroko')
+
