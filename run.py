@@ -4,6 +4,10 @@ from google.oauth2.service_account import Credentials
 import json
 import pandas as pd
 
+# TEMP: tests for adding new features
+from tests import test01
+
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -28,25 +32,25 @@ def instructions():
     dfp = df.drop('id', axis=1)
 
     print(dfp.to_string(header=False))
-    print('------------------------------------')
+    # print('------------------------------------')
 
 
 def f_00():
-    print(' ... execute function 0')
+    print('... execute function 0')
 
 def f_01():
-    print(' ... execute function 1')
+    print('... execute function 1')
 
 def f_02():
-    print(' ... execute function 2')
+    print('... execute function 2')
 
 def f_03():
-    print(' ... execute function 3')
+    print('... execute function 3')
 
 def options_run():
     #get the user input and executs functions based on the user input
     instructions()
-    op = int(input('Your option: '))
+    op = int(input('\n... Your option: '))
     match op:
         case 0:
             f_00()  
@@ -59,9 +63,11 @@ def options_run():
 
 
 def main(): 
-    print('\nW E L C O M E ! \nChoose form options below to proceed...')
+    print('\nW E L C O M E ! \n... Choose form options below to proceed\n')
     options_run()
 
-
-    print('\nD O N E ! \n                                    python3 run.py')
+    
+    print('\nD O N E !\n')
+    
+    test01()
 main()
