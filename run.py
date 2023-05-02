@@ -3,10 +3,11 @@ import gspread
 from google.oauth2.service_account import Credentials
 import json
 import pandas as pd
+import pyinputplus as pyip
 
-# TEMP: tests for adding new features
+
+# ..........................................TEMP: tests for adding new features
 from tests import test01
-
 
 
 SCOPE = [
@@ -21,53 +22,68 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('PP3-data-sets')
 
 
-def instructions():
-    # Opening JSON file
+def get_settings():
+
+    ## Open the file seting.json ##
     with open('setings.json') as json_file:
         data = json.load(json_file)
+
+    ## Extract the defined options ##
     options = data['options']
 
-    # load data into a DataFrame object:
+    ## Use Panda DataFrame to format the output ##
     df = pd.DataFrame(options).set_index('Op')
     dfp = df.drop('id', axis=1)
 
     print(dfp.to_string(header=False))
-    # print('------------------------------------')
+
+    ## Options list rows to define the Max of unput range ##
+    return len(options)
 
 
 def f_00():
+
+    ## Exit the program ##
     print('... execute function 0')
+
 
 def f_01():
     print('... execute function 1')
 
+
 def f_02():
     print('... execute function 2')
+
 
 def f_03():
     print('... execute function 3')
 
+
 def options_run():
-    #get the user input and executs functions based on the user input
-    instructions()
-    op = int(input('\n... Your option: '))
+
+    ## Executes the function corresponding to the user input ##
+    op = pyip.inputInt('\n... Your option: ', min=0, max=get_settings()-1)
     match op:
         case 0:
-            f_00()  
+            f_00()
         case 1:
             f_01()
         case 2:
             f_02()
         case 3:
             f_03()
+      
 
+def main():
 
-def main(): 
     print('\nW E L C O M E ! \n... Choose form options below to proceed\n')
     options_run()
 
     
-    print('\nD O N E !\n')
     
-    test01()
+    print('\nD O N E !\n')
+
+    # test01()
+
+
 main()

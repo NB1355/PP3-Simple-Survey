@@ -1,6 +1,11 @@
 {
   "options": [
     {
+      "id": "f_00",
+      "Op": "0",
+      "description": "Exit"
+    },
+    {
       "id": "f_01",
       "Op": "1",
       "description": "Execut functon f_01"
@@ -16,9 +21,14 @@
       "description": "Execut functon f_03"
     }
   ],
-  "messages":[
-    {}
+  "validate": [
+    {
+      "type": "int"
+    }
+  ],
+  "test": [
+    {
+      "type": "int"
+    }
   ]
 }
-
-
