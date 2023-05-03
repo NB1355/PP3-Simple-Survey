@@ -62,16 +62,21 @@ def f_03():
 def options_run():
 
     ## Executes the function corresponding to the user input ##
-    op = pyip.inputInt('\n... Your option: ', min=0, max=get_settings()-1)
-    match op:
-        case 0:
-            f_00()
-        case 1:
-            f_01()
-        case 2:
-            f_02()
-        case 3:
-            f_03()
+    try:
+        op = pyip.inputInt('\n... Your option: ', min=0, max=get_settings()-1)
+        match op:
+            case 0:
+                f_00()
+            case 1:
+                f_01()
+            case 2:
+                f_02()
+            case 3:
+                f_03()
+
+    except KeyboardInterrupt:
+        print('\n\nO O P S! \n... run whatever intrruption logic is!')
+         
       
 
 def main():
