@@ -4,9 +4,7 @@ from google.oauth2.service_account import Credentials
 import json
 import pandas as pd
 import pyinputplus as pyip
-# import os
-# import subprocess
-
+import getpass
 # ..........................................TEMP: tests for adding new features
 from tests import test01
 
@@ -27,13 +25,26 @@ def check_value(sht, col, val):
     ## Check whether a given value exists in a given column in connected sheet ##
     data = SHEET.worksheet(sht).get_all_records()
     df = pd.DataFrame(data).astype('string')
-    if val in df[col].values:
+    valset = df[col].values
+    if val in valset:
         out = 'exist'
     else:
         out = 'not exis'
     return out
 
 
+def get_user_pass():
+
+    username = input('Enter your username: ')
+    password = getpass.getpass('Enter your password: ')
+
+    key = username + '_' + password
+
+    xx = check_value('user', 'user_key', key)
+
+    print( key, xx )
+
+    
 def get_settings():
 
     ## Open the file seting.json ##
@@ -58,24 +69,25 @@ def f_00():
     ## Exit the program  ##
     exit('\nG O O D B Y !\n')
 
-0
+
 def f_01():
-    print('... execute function 1')
-    
+    print('... execute function 1 \n')
+    get_user_pass()
 
 
 def f_02():
     print('... execute function 2')
+    get_user_pass()
 
 
 def f_03():
     print('... execute function 3')
-
+    print(check_value('user' , 'user_key','name007_7'))
 
 
 def options_next():
     # Show the menue0
-    print( '\n\n... Choose an option to proceed')
+    print('\n... Choose an option to proceed')
     options_run()
 
 
@@ -95,8 +107,8 @@ def options_run():
                 f_03()
 
     except KeyboardInterrupt:
-        print('\n\nO O P S! \n... run whatever intrruption logic is!')
-    
+        print('\n\nO O P S! \nSomething went wrong!, back to the menue!')
+
     options_next()
 
 
@@ -104,5 +116,6 @@ def main():
 
     print('\nW E L C O M E ! \n... Choose form options below to proceed\n')
     options_run()
-   
+
+
 main()
