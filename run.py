@@ -22,6 +22,9 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('PP3-data-sets')
 
 
+
+
+
 def get_settings():
 
     ## Open the file seting.json ##
@@ -78,17 +81,39 @@ def options_run():
         print('\n\nO O P S! \n... run whatever intrruption logic is!')
          
       
+def check_value(sht,col,val):
+
+  
+    data = SHEET.worksheet(sht).get_all_records()
+
+    df = pd.DataFrame(data).astype('string')
+
+    # print(df[col].values , val)
+
+    if val in df[col].values:
+    # if str(val) in str(df[col].values):
+        out='exist'
+    
+    else:
+        out= 'not exis'
+    return out
+
 
 def main():
 
-    print('\nW E L C O M E ! \n... Choose form options below to proceed\n')
-    options_run()
+    i=1
+    # test = [ 'username','name0','name003','1',1,' ','!']
+    test = ['password',2,'2','12','a', 'L&kpN8wZ*E$q6%5C8y4M',' ','!']
 
+    print(test[0], 'input check')
     
-    
-    print('\nD O N E !\n')
+    while i < len(test):
+        print(test[i],'---' , check_value('user', test[0], test[i]))
 
-    # test01()
+        i = i+1
 
+    # print('\nW E L C O M E ! \n... Choose form options below to proceed\n')
+    # options_run()     
+    # print('\nD O N E !\n')
 
 main()
