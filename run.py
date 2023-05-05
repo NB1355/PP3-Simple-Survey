@@ -4,7 +4,9 @@ from google.oauth2.service_account import Credentials
 import json
 import pandas as pd
 import pyinputplus as pyip
-import getpass
+# import getpass
+# import pwinput
+
 # ..........................................TEMP: tests for adding new features
 from tests import test01
 
@@ -29,22 +31,27 @@ def check_value(sht, col, val):
     if val in valset:
         out = 'exist'
     else:
-        out = 'not exis'
+        out = ' does not exis!'
     return out
 
 
 def get_user_pass():
 
-    username = input('Enter your username: ')
-    password = getpass.getpass('Enter your password: ')
+    print('\n')
 
-    key = username + '_' + password
+    username = pyip.inputPassword(prompt='Enter your username: ' , mask=None) 
+    password = pyip.inputPassword(prompt='Enter your password: ', mask='*')
 
-    xx = check_value('user', 'user_key', key)
+    userkey = username + '_' + password
+    check_value('user', 'user_key', userkey)
 
-    print( key, xx )
+    if  check_value('user', 'user_key', userkey) == 'exist':
+       options_run()
+    else:
+        print('\nLogin data is not valid!\n') 
+        exit()       
 
-    
+
 def get_settings():
 
     ## Open the file seting.json ##
@@ -74,15 +81,12 @@ def f_01():
     print('... execute function 1 \n')
     get_user_pass()
 
-
 def f_02():
     print('... execute function 2')
-    get_user_pass()
-
+    login()
 
 def f_03():
     print('... execute function 3')
-    print(check_value('user' , 'user_key','name007_7'))
 
 
 def options_next():
@@ -107,15 +111,17 @@ def options_run():
                 f_03()
 
     except KeyboardInterrupt:
-        print('\n\nO O P S! \nSomething went wrong!, back to the menue!')
+        print('\n\nO O P S! \n... Something went wrong, back to the menue!')
 
     options_next()
 
 
 def main():
 
+    get_user_pass()
+
     print('\nW E L C O M E ! \n... Choose form options below to proceed\n')
-    options_run()
+   
 
 
 main()
