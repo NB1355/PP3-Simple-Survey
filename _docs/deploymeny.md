@@ -3,5 +3,5 @@
 |-------|-----------|----------|
 |1.P|Automated deplyment|![192758autoDeployToHeroku](screenshots/192758autoDeployToHeroku.jpg)|
 |2.P|Connection with google sheet|![194246drealTimeData](screenshots/194246drealTimeData.jpg)
+|2.x|test|![](_docs/Untitled Diagram.drawio)
 
-_docs/Untitled Diagram.drawio
