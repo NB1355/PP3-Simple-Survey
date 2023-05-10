@@ -68,7 +68,7 @@ def get_options():
     with open('setings.json') as json_file:
         data = json.load(json_file)
 
-## Extract the defined options ##
+    ## Extract the defined options ##
     options = data['options']
 
     ## Use Panda DataFrame to format the output ##
@@ -83,7 +83,6 @@ def get_options():
     return len(options)
 
 
-
 def f_00():
 
     ## Exit the program  ##
@@ -91,22 +90,21 @@ def f_00():
 
 
 def f_01():
-    print('... execute function 1 \n')
-    get_user_pass()
-
+    print('........... execute function 1 \n')
+    options_next()
 
 def f_02():
-    print('... execute function 2')
-    login()
+    print('.............. execute function 2')
+    options_next()
 
 
 def f_03():
-    print('... execute function 3')
-
+    print('.............. execute function 3')
+    options_next()
 
 def options_next():
-    # Show the menue0
-    print('\n... Choose an option to proceed')
+     # Show the menue0
+    print('\nChoose an option to proceed.')
     options_run()
 
 
@@ -114,7 +112,7 @@ def options_run():
 
     ## Executes the function corresponding to the user input ##
     try:
-        op = pyip.inputInt('\n... Your option: ', min=0, max=get_options()-1)
+        op = pyip.inputInt('\n> ', min=0, max=get_options()-1,)
         match op:
             case 0:
                 f_00()
@@ -126,14 +124,14 @@ def options_run():
                 f_03()
 
     except KeyboardInterrupt:
-        print('\n\nO O P S! \n... Something went wrong, back to the menue!')
+        print('\n\nO O P S! something went wrong...\nB A C K  T O  M E N U !')
 
     options_next()
 
 
 def main():
 
-    get_user_pass()
+    options_run()
 
     # print('\nW E L C O M E ! \n.... Choose form options below to proceed\n')
 
