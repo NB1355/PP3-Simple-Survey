@@ -95,12 +95,11 @@ def get_query(sht, rng, col):
     return valset
 
 def update_data(sht,data):
+
+    ## Update survey sheet with the vote ##
     
     worksheet_to_update = SHEET.worksheet(sht)
     worksheet_to_update.append_row(data)
-    
-    print('')
-
 
 
 def f_00():
@@ -114,28 +113,38 @@ def f_01():
     options_next()
 
 def f_02():
-     ## Run the current survey  ##
+
+    ## Run the current survey if the user vote doesn't exist, else show the result  ##
     value_list = get_query('S00', 'QA', 1)
-    print('>>> '+value_list[1]+'\n')
 
-    ansr = pyip.inputMenu([value_list[3], value_list[2]],
-                          numbered=True)
-    update_data('S00', [username, ansr])
-    print('Your Choice: '+ansr)
+    if check_value('S00', 'user', username) != 'exist':
+        ## Run the current survey  ##
+        print('>>> '+value_list[1]+'\n')
 
-    print('\nSurvey Results:\n'+value_list[1])
-    print(tabulate(get_query('S00', 'stat', [0, 2])))
+        ansr = pyip.inputMenu([value_list[3], value_list[2]],
+                            numbered=True)
+        update_data('S00', [username, ansr])
+        print('Your Choice: '+ansr)
 
-    print('Thanks for taking part!\n\nB A C K  T O  M E N U !')
+        print('\nSurvey Results:\n'+value_list[1])
+        print(tabulate(get_query('S00', 'stat', [0, 2])))
+
+        print('Thanks for taking part!\n\nB A C K  T O  M E N U !')
+    else:
+        print('You have given your vote befor!')
+
+        print('\nSurvey Results:\n'+value_list[1])
+        print(tabulate(get_query('S00', 'stat', [0, 2])))
+        
+        print('\n\nB A C K  T O  M E N U !')
 
     
-
-
-
-
 def f_03():
     print('.............. execute function 3')
     options_next()
+  
+
+    # options_next()
 
 
 def options_next():
@@ -169,8 +178,5 @@ def main():
 
     get_user_pass()
     options_run()
-
-    # print('\nW E L C O M E ! \n.... Choose form options below to proceed\n')
-
 
 main()
