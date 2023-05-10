@@ -4,8 +4,8 @@ from google.oauth2.service_account import Credentials
 import json
 import pandas as pd
 import pyinputplus as pyip
-# import getpass
-# import pwinput
+from tabulate import tabulate
+
 
 # ..........................................TEMP: tests for adding new features
 from tests import test01
@@ -31,7 +31,7 @@ def check_value(sht, col, val):
     if val in valset:
         out = 'exist'
     else:
-        out = ' does not exis!'
+        out = 'does not exis!'
     return out
 
 
@@ -57,28 +57,31 @@ def get_user_pass():
         else:
 
             print('\nW E L C O M E !')
-            print('\nChoose an option to proceed')
+            print('\nChoose an option to proceed.')
             options_run()
             continue
 
 
-def get_settings():
+def get_options():
 
     ## Open the file seting.json ##
     with open('setings.json') as json_file:
         data = json.load(json_file)
 
-    ## Extract the defined options ##
+## Extract the defined options ##
     options = data['options']
 
     ## Use Panda DataFrame to format the output ##
-    df = pd.DataFrame(options).set_index('Op')
+    df = pd.DataFrame(options)
     dfp = df.drop('id', axis=1)
 
-    print(dfp.to_string(header=False))
+    # print('\n',dfp.to_string(header=False,index=False))
+
+    print(tabulate(dfp, showindex=False))
 
     ## Options list rows to define the Max of unput range ##
     return len(options)
+
 
 
 def f_00():
@@ -111,7 +114,7 @@ def options_run():
 
     ## Executes the function corresponding to the user input ##
     try:
-        op = pyip.inputInt('\n... Your option: ', min=0, max=get_settings()-1)
+        op = pyip.inputInt('\n... Your option: ', min=0, max=get_options()-1)
         match op:
             case 0:
                 f_00()
