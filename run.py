@@ -37,19 +37,29 @@ def check_value(sht, col, val):
 
 def get_user_pass():
 
-    print('\n')
+    print('\nYou need valid cidentials to enter the program!')
+    print('3 attemps allowed!\n')
 
-    username = pyip.inputPassword(prompt='Enter your username: ' , mask=None) 
-    password = pyip.inputPassword(prompt='Enter your password: ', mask='*')
+    attempts = 3
+    while attempts > 0:
 
-    userkey = username + '_' + password
-    check_value('user', 'user_key', userkey)
+        username = pyip.inputPassword(
+            prompt='Enter your username: ', mask=None)
+        password = pyip.inputPassword(prompt='Enter your password: ', mask='*')
 
-    if  check_value('user', 'user_key', userkey) == 'exist':
-       options_run()
-    else:
-        print('\nLogin data is not valid!\n') 
-        exit()       
+        userkey = str(username) + '_' + str(password)
+        check_value('user', 'user_key', userkey)
+
+        if check_value('user', 'user_key', userkey) != 'exist':
+            attempts -= 1
+            print('\nLogin data is not valid,  ' +
+                  str(attempts) + '  attempt/s remaimed!!!\n')
+        else:
+
+            print('\nW E L C O M E !')
+            print('\nChoose an option to proceed')
+            options_run()
+            continue
 
 
 def get_settings():
@@ -81,9 +91,11 @@ def f_01():
     print('... execute function 1 \n')
     get_user_pass()
 
+
 def f_02():
     print('... execute function 2')
     login()
+
 
 def f_03():
     print('... execute function 3')
@@ -120,8 +132,7 @@ def main():
 
     get_user_pass()
 
-    print('\nW E L C O M E ! \n... Choose form options below to proceed\n')
-   
+    # print('\nW E L C O M E ! \n.... Choose form options below to proceed\n')
 
 
 main()
