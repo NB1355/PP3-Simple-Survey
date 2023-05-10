@@ -24,7 +24,7 @@ SHEET = GSPREAD_CLIENT.open('PP3-data-sets')
 
 
 def check_value(sht, col, val):
-    ## Check whether a given value exists in a given column in connected sheet ##
+    # Check whether a given value exists in a given column in connected sheet #
     data = SHEET.worksheet(sht).get_all_records()
     df = pd.DataFrame(data).astype('string')
     valset = df[col].values
@@ -83,14 +83,25 @@ def get_options():
     return len(options)
 
 
+def get_query(sht, rng, col):
+
+    data = SHEET.worksheet(sht).get_values(rng)
+    df = pd.DataFrame(data).astype('string')
+
+    # --------------------------------------------------------------- print(df)
+    valset = df[col].values
+    # ---------------------------------------------------------------print(valset)
+    return valset
+
+
 def f_00():
 
     ## Exit the program  ##
     exit('\nG O O D B Y !\n')
 
-
 def f_01():
-    print('........... execute function 1 \n')
+    # Clear the viable screen, CRED: https://stackoverflow.com/users/9704496/mario-palumbo  ##
+    print("\033c", end='')
     options_next()
 
 def f_02():
@@ -98,12 +109,14 @@ def f_02():
     options_next()
 
 
+
 def f_03():
     print('.............. execute function 3')
     options_next()
 
+
 def options_next():
-     # Show the menue0
+    # Show the menue0
     print('\nChoose an option to proceed.')
     options_run()
 
