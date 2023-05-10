@@ -43,14 +43,15 @@ def get_user_pass():
     attempts = 3
     while attempts > 0:
 
+        global username
         username = pyip.inputPassword(
             prompt='Enter your username: ', mask=None)
         password = pyip.inputPassword(prompt='Enter your password: ', mask='*')
 
         userkey = str(username) + '_' + str(password)
-        check_value('user', 'user_key', userkey)
+        # check_value('users', 'user_key', userkey)
 
-        if check_value('user', 'user_key', userkey) != 'exist':
+        if check_value('users', 'user_key', userkey) != 'exist':
             attempts -= 1
             print('\nLogin data is not valid,  ' +
                   str(attempts) + '  attempt/s remaimed!!!\n')
@@ -93,6 +94,14 @@ def get_query(sht, rng, col):
     # ---------------------------------------------------------------print(valset)
     return valset
 
+def update_data(sht,data):
+    
+    worksheet_to_update = SHEET.worksheet(sht)
+    worksheet_to_update.append_row(data)
+    
+    print('')
+
+
 
 def f_00():
 
@@ -111,11 +120,16 @@ def f_02():
 
     ansr = pyip.inputMenu([value_list[3], value_list[2]],
                           numbered=True)
+    update_data('S00', [username, ansr])
     print('Your Choice: '+ansr)
 
     print('\nSurvey Results:\n'+value_list[1])
     print(tabulate(get_query('S00', 'stat', [0, 2])))
-    print('Thanks for taking part! \n\nB A C K  T O  M E N U !')
+
+    print('Thanks for taking part!\n\nB A C K  T O  M E N U !')
+
+    
+
 
 
 
@@ -153,6 +167,7 @@ def options_run():
 
 def main():
 
+    get_user_pass()
     options_run()
 
     # print('\nW E L C O M E ! \n.... Choose form options below to proceed\n')
