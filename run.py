@@ -105,8 +105,17 @@ def f_01():
     options_next()
 
 def f_02():
-    print('.............. execute function 2')
-    options_next()
+     ## Run the current survey  ##
+    value_list = get_query('S00', 'QA', 1)
+    print('>>> '+value_list[1]+'\n')
+
+    ansr = pyip.inputMenu([value_list[3], value_list[2]],
+                          numbered=True)
+    print('Your Choice: '+ansr)
+
+    print('\nSurvey Results:\n'+value_list[1])
+    print(tabulate(get_query('S00', 'stat', [0, 2])))
+    print('Thanks for taking part! \n\nB A C K  T O  M E N U !')
 
 
 
