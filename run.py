@@ -5,10 +5,9 @@ import json
 import pandas as pd
 import pyinputplus as pyip
 from tabulate import tabulate
+import numpy as np
+from io import StringIO
 
-
-# ..........................................TEMP: tests for adding new features
-from tests import test01
 
 
 SCOPE = [
@@ -57,10 +56,36 @@ def get_user_pass():
                   str(attempts) + '  attempt/s remaimed!!!\n')
         else:
 
-            print('\nW E L C O M E !')
-            print('\nChoose an option to proceed.')
-            options_run()
-            continue
+            # print('\nW E L C O M E !')
+            # print('\nChoose an option to proceed.')
+            # options_run()
+            # continue
+            f_03()
+
+def get_surveys():
+
+    print('\nSurvey List:')
+    srv_list = []
+    # ['ID', 'Query', 'Status' , 'User Vote'] 
+    for row in range(1,6):
+        sublist = []
+        for col in range(1):
+            srv_id = 'S'+ f'{row:02d}'
+            srv_qs = SHEET.worksheet(srv_id).cell(2, 5).value
+            srv_st = SHEET.worksheet(srv_id).cell(2, 4).value
+            srv_us = check_value(srv_id, 'user', username)
+            sublist.append(srv_id)
+            sublist.append(srv_qs)
+            sublist.append(srv_st)
+            sublist.append(srv_us)
+
+        srv_list.append(sublist)
+
+    # print(pd.DataFrame(srv_list))
+    print(tabulate(srv_list,headers=['ID', 'Query', 'Status' , 'User Vote']),'\n')
+
+    # srv_filt = srv_list.
+
 
 
 def get_options():
@@ -140,11 +165,10 @@ def f_02():
 
     
 def f_03():
-    print('.............. execute function 3')
-    options_next()
-  
-
-    # options_next()
+    print('\nexecuting function 3')
+    # data = SHEET.fetch_sheet_metadata(params=None)
+    get_surveys()
+    exit()
 
 
 def options_next():
@@ -177,6 +201,7 @@ def options_run():
 def main():
 
     get_user_pass()
-    options_run()
+    # options_run()
+    f_03()
 
 main()
