@@ -62,17 +62,18 @@ def get_user_pass():
 
             print('\nLogin data is not valid,  ' +
                   str(attempts) + '  attempt/s remaimed!!!\n')
-             
+
 
 def get_surveys():
 
     print('\nSurvey List:')
     srv_list = []
-    # ['ID', 'Query', 'Status' , 'User Vote'] 
-    for row in range(1,6):
+    srv_menu = []
+    # ['ID', 'Query', 'Status' , 'User Vote']
+    for row in range(1, 6):
         sublist = []
         for col in range(1):
-            srv_id = 'S'+ f'{row:02d}'
+            srv_id = 'S' + f'{row:02d}'
             srv_qs = SHEET.worksheet(srv_id).cell(2, 5).value
             srv_st = SHEET.worksheet(srv_id).cell(2, 4).value
             srv_us = check_value(srv_id, 'user', username)
@@ -80,14 +81,15 @@ def get_surveys():
             sublist.append(srv_qs)
             sublist.append(srv_st)
             sublist.append(srv_us)
+            srv_menu.append(srv_qs)
 
         srv_list.append(sublist)
 
     # print(pd.DataFrame(srv_list))
-    print(tabulate(srv_list,headers=['ID', 'Query', 'Status' , 'User Vote']),'\n')
+    print(tabulate(srv_list, headers=[
+          'ID', 'Query', 'Status', 'User Vote']), '\n')
 
     # srv_filt = srv_list.
-
 
 
 def get_options():
@@ -121,10 +123,11 @@ def get_query(sht, rng, col):
     # ---------------------------------------------------------------print(valset)
     return valset
 
-def update_data(sht,data):
+
+def update_data(sht, data):
 
     ## Update survey sheet with the vote ##
-    
+
     worksheet_to_update = SHEET.worksheet(sht)
     worksheet_to_update.append_row(data)
 
@@ -134,10 +137,12 @@ def f_00():
     ## Exit the program  ##
     exit('\nG O O D B Y !\n')
 
+
 def f_01():
     # Clear the viable screen, CRED: https://stackoverflow.com/users/9704496/mario-palumbo  ##
     print("\033c", end='')
     options_next()
+
 
 def f_02():
 
@@ -149,7 +154,7 @@ def f_02():
         print('>>> '+value_list[1]+'\n')
 
         ansr = pyip.inputMenu([value_list[3], value_list[2]],
-                            numbered=True)
+                              numbered=True)
         update_data('S00', [username, ansr])
         print('Your Choice: '+ansr)
 
@@ -162,10 +167,10 @@ def f_02():
 
         print('\nSurvey Results:\n'+value_list[1])
         print(tabulate(get_query('S00', 'stat', [0, 2])))
-        
+
         print('\n\nB A C K  T O  M E N U !')
 
-    
+
 def f_03():
     print('\nexecuting function 3')
     # data = SHEET.fetch_sheet_metadata(params=None)
@@ -206,5 +211,6 @@ def main():
     get_surveys()
     print('\nW E L C O M E !')
     options_run()
+
 
 main()
