@@ -5,7 +5,6 @@ import json
 import pandas as pd
 import pyinputplus as pyip
 from tabulate import tabulate
-# import numpy as np
 from io import StringIO
 
 
@@ -86,16 +85,13 @@ def get_surveys():
 
         srv.append(sublist)
 
-    # options_run()
-    # print(pd.DataFrame((srv_menu)))
-
 
 def get_vote(sht):
 
     value_list = get_query(sht, 'QA', 1)
 
     if check_value(sht, 'user', username) != 'exist':
-        ## Run the current survey  ##
+        # Run the current survey  #
         print('\n>> '+value_list[1]+'\n')
 
         ansr = pyip.inputMenu([value_list[3], value_list[2]],
@@ -119,14 +115,14 @@ def get_vote(sht):
 
 def get_options():
 
-    ## Open the file seting.json ##
+    # Open the file seting.json #
     with open('setings.json') as json_file:
         data = json.load(json_file)
 
-    ## Extract the defined options ##
+    # Extract the defined options #
     options = data['options']
 
-    ## Use Panda DataFrame to format the output ##
+    # Use Panda DataFrame to format the output #
     df = pd.DataFrame(options)
     dfp = df.drop('id', axis=1)
 
@@ -134,7 +130,7 @@ def get_options():
 
     print(tabulate(dfp, showindex=False))
 
-    ## Options list rows to define the Max of unput range ##
+    # Options list rows to define the Max of unput range #
     return len(options)
 
 
@@ -151,7 +147,7 @@ def get_query(sht, rng, col):
 
 def update_data(sht, data):
 
-    ## Update survey sheet with the vote ##
+    # Update survey sheet with the vote #
 
     worksheet_to_update = SHEET.worksheet(sht)
     worksheet_to_update.append_row(data)
@@ -159,14 +155,14 @@ def update_data(sht, data):
 
 def f_00():
 
-    ## Exit the program  ##
+    # Exit the program  #
     exit('\nG O O D B Y !\n')
 
 
 def f_01():
-    # Clear the viable screen, CRED: https://stackoverflow.com/users/9704496/mario-palumbo  ##
+    # Clear the viable screen
+    # CRED: https://stackoverflow.com/users/9704496/mario-palumbo
     print("\033c", end='')
-    # options_next()
     options_run()
 
 
@@ -175,8 +171,6 @@ def f_02():
     for row in range(5):
         if srv[row][2] == 'current':
             current = srv[row][0]
-    # print(current)
-    ## Run the current survey if the user vote doesn't exist, else show the result  ##
     get_vote(current)
     options_run()
 
@@ -222,7 +216,7 @@ def f_04():
 def options_run():
 
     print('\nChoose an option to proceed.')
-    ## Executes the function corresponding to the user input ##
+    # Executes the function corresponding to the user input #
     try:
         op = pyip.inputInt('\n> ', min=0, max=get_options()-1,)
         match op:
