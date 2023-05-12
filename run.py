@@ -9,7 +9,6 @@ import numpy as np
 from io import StringIO
 
 
-
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -50,17 +49,20 @@ def get_user_pass():
         userkey = str(username) + '_' + str(password)
         # check_value('users', 'user_key', userkey)
 
-        if check_value('users', 'user_key', userkey) != 'exist':
+        if check_value('users', 'user_key', userkey) == 'exist':
+            print('\nWait for the program to load ...')
+            attempts = 0
+            break
+
+        else:
             attempts -= 1
+            if attempts == 0:
+                print('\nAuthentication failed\nE X I T !')
+                exit()
+
             print('\nLogin data is not valid,  ' +
                   str(attempts) + '  attempt/s remaimed!!!\n')
-        else:
-
-            # print('\nW E L C O M E !')
-            # print('\nChoose an option to proceed.')
-            # options_run()
-            # continue
-            f_03()
+             
 
 def get_surveys():
 
@@ -201,7 +203,8 @@ def options_run():
 def main():
 
     get_user_pass()
-    # options_run()
-    f_03()
+    get_surveys()
+    print('\nW E L C O M E !')
+    options_run()
 
 main()
