@@ -195,6 +195,29 @@ def f_03():
         get_vote(sht)
 
 
+def f_04():
+
+    print("\033c", end='')
+    print('\n')
+    df = pd.DataFrame(srv)
+    for row in range(5):
+
+        sht = df.loc[row][0]
+        if df.loc[row][3] == 'exist':
+            vot = ', you voted!'
+        else:
+            vot = ''
+
+        print(df.loc[row][0])
+        print(df.loc[row][1])
+        print(tabulate(get_query(sht, 'stat', [0, 2])))
+        print(df.loc[row][2], vot)
+        print('\n')
+
+    print('\n\nB A C K  T O  M E N U !')
+    options_run()
+
+
 def options_next():
     # Show the menue0
     print('\nChoose an option to proceed.')

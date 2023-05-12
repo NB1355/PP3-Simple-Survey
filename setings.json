@@ -13,12 +13,17 @@
     {
       "id": "f_02",
       "Op": "2",
-      "description": "Take the current survey"
+      "description": "Top Survey"
     },
     {
       "id": "f_f03",
       "Op": "3",
-      "description": "Execut functon f_03"
+      "description": "Survey List"
+    },
+    {
+      "id": "f_f04",
+      "Op": "4",
+      "description": "See All Results"
     }
   ],
   "validate": [
