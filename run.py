@@ -67,7 +67,7 @@ def get_user_pass():
 def get_surveys():
 
     print('\nSurvey List:')
-    srv_list = []
+    srv = []
     srv_menu = []
     # ['ID', 'Query', 'Status' , 'User Vote']
     for row in range(1, 6):
@@ -83,10 +83,10 @@ def get_surveys():
             sublist.append(srv_us)
             srv_menu.append(srv_qs)
 
-        srv_list.append(sublist)
+        srv.append(sublist)
 
-    # print(pd.DataFrame(srv_list))
-    # srv_filt = srv_list.
+    # print(pd.DataFrame(srv))
+    # srv_filt = srv.
 
 
 def get_vote(sht):
