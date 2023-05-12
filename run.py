@@ -86,10 +86,34 @@ def get_surveys():
         srv_list.append(sublist)
 
     # print(pd.DataFrame(srv_list))
-    print(tabulate(srv_list, headers=[
-          'ID', 'Query', 'Status', 'User Vote']), '\n')
-
     # srv_filt = srv_list.
+
+
+def get_vote(sht):
+
+    value_list = get_query(sht, 'QA', 1)
+
+    if check_value(sht, 'user', username) != 'exist':
+        ## Run the current survey  ##
+        print('\n>> '+value_list[1]+'\n')
+
+        ansr = pyip.inputMenu([value_list[3], value_list[2]],
+                              numbered=True)
+        update_data(sht, [username, ansr])
+        print('> Your Choice: '+ansr)
+
+        print('\nSurvey Results:\n'+value_list[1])
+        print(tabulate(get_query(sht, 'stat', [0, 2])))
+
+        print('Thanks for taking part!\n\nB A C K  T O  M E N U !')
+    else:
+        print('> You have voted befor!')
+
+        print('\nSurvey Results:\n'+value_list[1])
+        print(tabulate(get_query(sht, 'stat', [0, 2])))
+
+        print('\n\nB A C K  T O  M E N U !')
+        options_run()
 
 
 def get_options():
@@ -147,28 +171,13 @@ def f_01():
 def f_02():
 
     ## Run the current survey if the user vote doesn't exist, else show the result  ##
-    value_list = get_query('S00', 'QA', 1)
-
-    if check_value('S00', 'user', username) != 'exist':
-        ## Run the current survey  ##
-        print('>>> '+value_list[1]+'\n')
-
-        ansr = pyip.inputMenu([value_list[3], value_list[2]],
-                              numbered=True)
-        update_data('S00', [username, ansr])
-        print('Your Choice: '+ansr)
-
-        print('\nSurvey Results:\n'+value_list[1])
-        print(tabulate(get_query('S00', 'stat', [0, 2])))
-
-        print('Thanks for taking part!\n\nB A C K  T O  M E N U !')
-    else:
-        print('You have given your vote befor!')
-
-        print('\nSurvey Results:\n'+value_list[1])
-        print(tabulate(get_query('S00', 'stat', [0, 2])))
-
-        print('\n\nB A C K  T O  M E N U !')
+    for row in range(5):
+        if srv[row][2] == 'current':
+            current = srv[row][0]
+    # print(current)
+    ## Run the current survey if the user vote doesn't exist, else show the result  ##
+    get_vote(current)
+    options_run()
 
 
 def f_03():
