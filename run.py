@@ -5,7 +5,7 @@ import json
 import pandas as pd
 import pyinputplus as pyip
 from tabulate import tabulate
-import numpy as np
+# import numpy as np
 from io import StringIO
 
 
@@ -87,7 +87,7 @@ def get_surveys():
         srv.append(sublist)
 
     # options_run()
-    # print(pd.DataFrame((srv_menu))
+    # print(pd.DataFrame((srv_menu)))
 
 
 def get_vote(sht):
@@ -166,12 +166,12 @@ def f_00():
 def f_01():
     # Clear the viable screen, CRED: https://stackoverflow.com/users/9704496/mario-palumbo  ##
     print("\033c", end='')
-    options_next()
+    # options_next()
+    options_run()
 
 
 def f_02():
 
-    ## Run the current survey if the user vote doesn't exist, else show the result  ##
     for row in range(5):
         if srv[row][2] == 'current':
             current = srv[row][0]
@@ -182,6 +182,7 @@ def f_02():
 
 
 def f_03():
+
     opt = pyip.inputMenu(srv_menu, numbered=True)
     for row in range(5):
         if srv[row][1] == opt:
@@ -218,14 +219,9 @@ def f_04():
     options_run()
 
 
-def options_next():
-    # Show the menue0
-    print('\nChoose an option to proceed.')
-    options_run()
-
-
 def options_run():
 
+    print('\nChoose an option to proceed.')
     ## Executes the function corresponding to the user input ##
     try:
         op = pyip.inputInt('\n> ', min=0, max=get_options()-1,)
@@ -238,11 +234,11 @@ def options_run():
                 f_02()
             case 3:
                 f_03()
+            case 4:
+                f_04()
 
     except KeyboardInterrupt:
         print('\n\nO O P S! something went wrong...\nB A C K  T O  M E N U !')
-
-    options_next()
 
 
 def main():
