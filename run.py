@@ -182,10 +182,17 @@ def f_02():
 
 
 def f_03():
-    print('\nexecuting function 3')
-    # data = SHEET.fetch_sheet_metadata(params=None)
-    get_surveys()
-    exit()
+    opt = pyip.inputMenu(srv_menu, numbered=True)
+    for row in range(5):
+        if srv[row][1] == opt:
+            sht = 'S0'+str(row+1)
+
+    print(sht)
+    if SHEET.worksheet(sht).cell(2, 4).value == 'closed':
+        print('...............closed')
+        options_run()
+    else:
+        get_vote(sht)
 
 
 def options_next():
