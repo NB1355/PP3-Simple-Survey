@@ -95,6 +95,16 @@ Python3 is the main language used as required, others are shown in the GitHub la
 
 ### Deployment
 Heroku is used for deployment; specific setup instructions can be found in the source template provided by CodeInstitute.
+Points to consider:
+- using the command "pip3 freeze > requirements.txt" to populate
+- Once loged into the Heroku dashboard, a new app was created by clicking on the button 'New' and select 'Create New App'.
+- 'Reveal Config Vars' in settings to set environment variables in the file requirements
+- 'KEY' the word 'CREDS' was entered, all capitals
+- copy creds.json into the 'VALUE' field.
+- Add KEY 'PORT' and the VALUE set to '8000'.
+- Add a python Buildpack and node.js , python needs to be listed above 
+- in deploy setting this repository should be linked, deployment can be manual or automated
+
 
 ## Testing
 
